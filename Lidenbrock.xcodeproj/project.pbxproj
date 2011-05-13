@@ -51,7 +51,7 @@
 		C771B6AB137D6F7A00FA004C /* NSManagedObject+Lidenbrock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Lidenbrock.m"; sourceTree = "<group>"; };
 		C771B6AC137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Lidenbrock.h"; sourceTree = "<group>"; };
 		C771B6AD137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Lidenbrock.m"; sourceTree = "<group>"; };
-		C771B6B7137D6FB400FA004C /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		C771B6B7137D6FB400FA004C /* README.md */ = {isa = PBXFileReference; path = README.md; sourceTree = "<group>"; };
 		C771B6B8137D6FD400FA004C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C771B6B9137D6FD400FA004C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -73,7 +73,7 @@
 		C771B682137D6F1200FA004C = {
 			isa = PBXGroup;
 			children = (
-				C771B6B7137D6FB400FA004C /* README */,
+				C771B6B7137D6FB400FA004C /* README.md */,
 				C771B695137D6F1200FA004C /* Lidenbrock */,
 				C771B690137D6F1200FA004C /* Frameworks */,
 				C771B68F137D6F1200FA004C /* Products */,
