@@ -1,0 +1,6 @@
+//
+// Prefix header for all source files of the 'Lidenbrock' target in the 'Lidenbrock' project
+//
+
+#ifdef __OBJC__
+#endif
