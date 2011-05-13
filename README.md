@@ -18,9 +18,9 @@ Installation
 1. git clone git@github.com:sixdegrees/lidenbrock.git
 2. Import Lidenbrock.framework to your XCode project
 3. Add -ObjC and -all_load to Other Link Flags in your project
-4. Include the framework in your code :
+4. You can now import the framework within your code :
 
-#### Example
+#### Code
     #import <Lidenbrock/Lidenbrock.h>
 
 
