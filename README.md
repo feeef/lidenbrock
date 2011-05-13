@@ -19,6 +19,8 @@ Installation
 2. Import Lidenbrock.framework to your XCode project
 3. Add -ObjC and -all_load to Other Link Flags in your project
 4. Include the framework in your code :
+
+#### Example
     #import <Lidenbrock/Lidenbrock.h>
 
 
