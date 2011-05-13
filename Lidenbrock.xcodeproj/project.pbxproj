@@ -23,14 +23,37 @@
 /* Begin PBXBuildFile section */
 		C771B692137D6F1200FA004C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C771B691137D6F1200FA004C /* Foundation.framework */; };
 		C771B69A137D6F1200FA004C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C771B698137D6F1200FA004C /* InfoPlist.strings */; };
+		C771B6AE137D6F7A00FA004C /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C771B6A5137D6F7A00FA004C /* JSONKit.h */; };
+		C771B6AF137D6F7A00FA004C /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C771B6A6137D6F7A00FA004C /* JSONKit.m */; };
+		C771B6B0137D6F7A00FA004C /* LBObjectManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C771B6A7137D6F7A00FA004C /* LBObjectManager.h */; };
+		C771B6B1137D6F7A00FA004C /* LBObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C771B6A8137D6F7A00FA004C /* LBObjectManager.m */; };
+		C771B6B2137D6F7A00FA004C /* Lidenbrock.h in Headers */ = {isa = PBXBuildFile; fileRef = C771B6A9137D6F7A00FA004C /* Lidenbrock.h */; };
+		C771B6B3137D6F7A00FA004C /* NSManagedObject+Lidenbrock.h in Headers */ = {isa = PBXBuildFile; fileRef = C771B6AA137D6F7A00FA004C /* NSManagedObject+Lidenbrock.h */; };
+		C771B6B4137D6F7A00FA004C /* NSManagedObject+Lidenbrock.m in Sources */ = {isa = PBXBuildFile; fileRef = C771B6AB137D6F7A00FA004C /* NSManagedObject+Lidenbrock.m */; };
+		C771B6B5137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.h in Headers */ = {isa = PBXBuildFile; fileRef = C771B6AC137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.h */; };
+		C771B6B6137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m in Sources */ = {isa = PBXBuildFile; fileRef = C771B6AD137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m */; };
+		C771B6BA137D6FD400FA004C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C771B6B8137D6FD400FA004C /* CoreData.framework */; };
+		C771B6BB137D6FD400FA004C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C771B6B9137D6FD400FA004C /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C771B68E137D6F1200FA004C /* Lidenbrock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = Lidenbrock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C771B691137D6F1200FA004C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C771B697137D6F1200FA004C /* Lidenbrock-Info.plist */ = {isa = PBXFileReference; path = "Lidenbrock-Info.plist"; sourceTree = "<group>"; };
+		C771B697137D6F1200FA004C /* Lidenbrock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Lidenbrock-Info.plist"; sourceTree = "<group>"; };
 		C771B699137D6F1200FA004C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C771B69B137D6F1200FA004C /* Lidenbrock-Prefix.pch */ = {isa = PBXFileReference; path = "Lidenbrock-Prefix.pch"; sourceTree = "<group>"; };
+		C771B69B137D6F1200FA004C /* Lidenbrock-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lidenbrock-Prefix.pch"; sourceTree = "<group>"; };
+		C771B6A5137D6F7A00FA004C /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		C771B6A6137D6F7A00FA004C /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		C771B6A7137D6F7A00FA004C /* LBObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBObjectManager.h; sourceTree = "<group>"; };
+		C771B6A8137D6F7A00FA004C /* LBObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBObjectManager.m; sourceTree = "<group>"; };
+		C771B6A9137D6F7A00FA004C /* Lidenbrock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lidenbrock.h; sourceTree = "<group>"; };
+		C771B6AA137D6F7A00FA004C /* NSManagedObject+Lidenbrock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Lidenbrock.h"; sourceTree = "<group>"; };
+		C771B6AB137D6F7A00FA004C /* NSManagedObject+Lidenbrock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Lidenbrock.m"; sourceTree = "<group>"; };
+		C771B6AC137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Lidenbrock.h"; sourceTree = "<group>"; };
+		C771B6AD137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Lidenbrock.m"; sourceTree = "<group>"; };
+		C771B6B7137D6FB400FA004C /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		C771B6B8137D6FD400FA004C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C771B6B9137D6FD400FA004C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +62,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C771B692137D6F1200FA004C /* Foundation.framework in Frameworks */,
+				C771B6BA137D6FD400FA004C /* CoreData.framework in Frameworks */,
+				C771B6BB137D6FD400FA004C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +73,7 @@
 		C771B682137D6F1200FA004C = {
 			isa = PBXGroup;
 			children = (
+				C771B6B7137D6FB400FA004C /* README */,
 				C771B695137D6F1200FA004C /* Lidenbrock */,
 				C771B690137D6F1200FA004C /* Frameworks */,
 				C771B68F137D6F1200FA004C /* Products */,
@@ -65,6 +91,8 @@
 		C771B690137D6F1200FA004C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C771B6B8137D6FD400FA004C /* CoreData.framework */,
+				C771B6B9137D6FD400FA004C /* UIKit.framework */,
 				C771B691137D6F1200FA004C /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -73,6 +101,7 @@
 		C771B695137D6F1200FA004C /* Lidenbrock */ = {
 			isa = PBXGroup;
 			children = (
+				C771B6A4137D6F7A00FA004C /* Classes */,
 				C771B696137D6F1200FA004C /* Supporting Files */,
 			);
 			path = Lidenbrock;
@@ -88,6 +117,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C771B6A4137D6F7A00FA004C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C771B6A9137D6F7A00FA004C /* Lidenbrock.h */,
+				C771B6AA137D6F7A00FA004C /* NSManagedObject+Lidenbrock.h */,
+				C771B6AB137D6F7A00FA004C /* NSManagedObject+Lidenbrock.m */,
+				C771B6AC137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.h */,
+				C771B6AD137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m */,
+				C771B6A7137D6F7A00FA004C /* LBObjectManager.h */,
+				C771B6A8137D6F7A00FA004C /* LBObjectManager.m */,
+				C771B6A5137D6F7A00FA004C /* JSONKit.h */,
+				C771B6A6137D6F7A00FA004C /* JSONKit.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -95,6 +140,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C771B6AE137D6F7A00FA004C /* JSONKit.h in Headers */,
+				C771B6B0137D6F7A00FA004C /* LBObjectManager.h in Headers */,
+				C771B6B2137D6F7A00FA004C /* Lidenbrock.h in Headers */,
+				C771B6B3137D6F7A00FA004C /* NSManagedObject+Lidenbrock.h in Headers */,
+				C771B6B5137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +227,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C771B6AF137D6F7A00FA004C /* JSONKit.m in Sources */,
+				C771B6B1137D6F7A00FA004C /* LBObjectManager.m in Sources */,
+				C771B6B4137D6F7A00FA004C /* NSManagedObject+Lidenbrock.m in Sources */,
+				C771B6B6137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

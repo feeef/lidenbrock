@@ -1,0 +1,1 @@
+#import "NSManagedObject+Lidenbrock.h"

@@ -1,0 +1,29 @@
+Description
+===========
+
+Lindenbrock is an add-on to Core Data. It is a solution to easily synchronize your Core Data based application with external JSON data.
+
+Features
+==============
+
+* Load new models or synchronize existing ones from a JSON string
+* Fetch your data through a single line of code
+* Sort your result directly from the predicate format (the SQL way)
+
+
+Installation
+=======
+
+1. git clone git@github.com:sixdegrees/lidenbrock.git
+2. Import Lindenbrock.framework to your XCode project
+3. Add -ObjC and -all_load to Other Link Flags in your project
+4. Include the framework in your code :
+#import <Lidenbrock/Lidenbrock.h>
+
+
+Using Lindenbrock
+========
+
+Lindenbrock only uses the default managed object context defined by [YourAppDelegate managedObjectContext], so before using it, make sure this variable is correctly defined.
+
+
