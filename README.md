@@ -46,7 +46,7 @@ Let's assume the following DB Model (as your .xcdatamodel). All Models are gener
         recipes (NSSet)
 
 
-And the following <b>jsonString</b> variable :
+The following <b>jsonObject</b> variable :
 
     {
         "id"          : "REC1",
@@ -68,22 +68,35 @@ And the following <b>jsonString</b> variable :
         ]
     }
 
+And the following <b>jsonArray</b> variable :
+
+    [
+        {"name" : "flour"},
+        {"name" : "egg"},
+        {"name" : "milk"}
+    ]
+
+
 
 ### Load from JSON
 
 In order to load a model from a JSON string, you can use the class method <b>entityFromJson</b> on any of your NSManagedObject class.
 
-    Recipe *recipe = [Recipe entityFromJson: jsonString];
+    Recipe *recipe = [Recipe entityFromJson: jsonObject];
 
 You may also use the instance method :
     
     Recipe *recipe = [Recipe newEntity];
-    [recipe loadFromJson: jsonString];
+    [recipe loadFromJson: jsonObject];
 
-
-You may now access your ingredients through the <b>ingredients</b> attribute :
+Loading is recursive so you can now access your ingredients through the <b>ingredients</b> attribute :
 
     NSArray *ingredients = [recipe.ingredients allObjects];
+
+
+You can also load an array of objects :
+
+    NSArray *ingredients = [Ingredient entitiesFromJson: jsonArray];
 
 
 ### Sync from JSON
@@ -115,7 +128,7 @@ The new model is as follow :
 
 <b>entityFromJson</b> will now sync existing data
 
-    Recipe *recipe = [Recipe entityFromJson: jsonString];
+    Recipe *recipe = [Recipe entityFromJson: jsonObject];
 
 
 
@@ -156,6 +169,17 @@ You can sort your fetched data by adding a "SORT BY" satement at the end of your
 <b>IMPORTANT NOTE : </b> You should not use any "%@" variables in your "SORT BY" satement as the fetch method extracts this statment out of the rest of the format and only apply variables to the real predicate format, as defined by Apple.
 
 
+What's coming next ?
+==============
 
+Lidenbrock is at an early stage of development so a lot of important features are still missing. They should be available in future releases.
+
+* Ability to use more than one Context
+* Add a "Limit" statmament to the fetch method
+* Delete data
+* Load from URL
+* Send to URL
+
+Stay tuned!
 
 
