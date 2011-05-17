@@ -81,10 +81,6 @@ You may also use the instance method :
     [recipe loadFromJson: jsonString];
 
 
-jsonString representing the folowing :
-
-
-
 You may now access your ingredients through the <b>ingredients</b> attribute :
 
     NSArray *ingredients = [recipe.ingredients allObjects];
@@ -138,7 +134,7 @@ You can also perform a save directly on the context.
 ### Fetch
 
 You can fetch an entity directly from its id (matching syncID). 
-If no match can be found, a new entity is created and returned with the new id (in the exemple @"REC1") set as syncID.
+If no match can be found, a new entity is created and returned with the new id set as syncID.
 
     Recipe *recipe = [Recipe entityWithId: @"REC1"];
 
