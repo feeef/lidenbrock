@@ -20,16 +20,14 @@ Installation
 3. Add -ObjC and -all_load to Other Link Flags in your project
 4. You can now import the framework within your code :
 
+#### Code
     #import <Lidenbrock/Lidenbrock.h>
 
 
 Using Lidenbrock
 ========
 
-Lidenbrock only uses one Managed Object Context defined (by default when you create a Core Data project) as <b>[YourAppDelegate managedObjectContext]</b>, so make sure this is your Context.
-
-
-### Load from JSON
+Lidenbrock only uses one Managed Object Context defined (by default when you create a Core Data project) as <code>YourAppDelegate.managedObjectContext</code>, so make sure this is your Context.
 
 Let's assume the following DB Model (as your .xcdatamodel). All Models are generated as NSManagedObject classes in your source code :
 
@@ -48,6 +46,8 @@ Let's assume the following DB Model (as your .xcdatamodel). All Models are gener
         recipes (NSSet)
 
 
+### Load from JSON
+
 In order to load a model from a JSON string, you can use the class method <b>entityFromJson</b> on any of your NSManagedObject class.
 
     Recipe *recipe = [Recipe entityFromJson: jsonString];
@@ -61,11 +61,12 @@ You may also use the instance method :
 jsonString representing the folowing :
 
     {
-        "name"        : "my recipe",
-        "details"     : "the details of the recipe",
+        "name"        : "pancake",
+        "details"     : "In a large bowl, sift together the flour, egg, milk...",
         "ingredients" : [
-            {"name" : "my first ingredient"},
-            {"name" : "my second ingredient"}
+            {"name" : "flour"},
+            {"name" : "egg"},
+            {"name" : "milk"}
         ]
     }
 
@@ -97,7 +98,7 @@ If no match can be made, a new entity is created.
         ------------
         recipes (NSSet)
 
-Just call <b>entityFromJson</b>. 
+Just call <b>entityFromJson</b>
 
     Recipe *recipe = [Recipe entityFromJson: jsonString];
 
@@ -105,17 +106,59 @@ With the following JSON string :
 
     {
         "id"          : "REC1",
-        "name"        : "my recipe",
-        "details"     : "the details of the recipe",
+        "name"        : "pancake",
+        "details"     : "In a large bowl, sift together the flour, egg, milk...",
         "ingredients" : [
             {
                 "id"   : "INGR1",
-                "name" : "my first ingredient"
+                "name" : "flour"
             },
             {
                 "id"   : "INGR2",
-                "name" : "my second ingredient"
+                "name" : "egg"
+            },
+            {
+                "id"   : "INGR3",
+                "name" : "milk"
             }
         ]
     }
+
+
+### Save
+
+You may save your data by calling the <b>save</b> method on your NSManagedObject instance. This is in fact a shortcut that performs a save on the all context.
+
+    [recipe save];
+
+You can also perform a save directly on the context.
+
+    [[NSManagedObjectContext defaultContext] saveDefaultContext];
+
+
+
+### Fetch
+
+You can fetch an entity directly from it id (matching syncID). In that case, if no match can be found, a new entity is created and returned with @"REC1" set as syncID.
+
+    Recipe *recipe = [Recipe entityWithId: @"REC1"];
+
+
+You can also easily fetch entities from a predicate format.    
+    
+    NSString *ingredientName = @"egg";
+    NSArray *recipes = [Recipe fetch: @"ANY ingredients.name == %@", ingredientName];
+
+
+
+### Fetch & sort
+
+You can sort your fetched data by adding a "SORT BY" satement at the end of your predicate format.
+
+<b>IMPORTANT NOTE : </b> You should not use any "%@" variables in your "SORT BY" satement as the fetch method extracts this statment out of the rest of the format and only apply variables to the real predicate format, as defined by Apple.
+
+    NSArray *recipes = [Recipe fetch: @"ANY ingredients.name == %@ ORDER BY name DESC", ingredientName];
+
+
+
 
