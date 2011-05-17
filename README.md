@@ -27,4 +27,41 @@ Installation
 Using Lidenbrock
 ========
 
-Lidenbrock only uses the Managed Object Context set by default as [YourAppDelegate managedObjectContext], so make sure this variable is accessible.
+Lidenbrock only uses one Managed Object Context defined (by default when you create a Core Data project) as [YourAppDelegate managedObjectContext], so make sure this is your Context.
+
+
+Let's assume the following DB Model (as your .xcdatamodel). All Models are generated as NSManagedObject classes in your source code :
+
+    Recipe
+    ----------------
+        name
+        details
+        ------------
+        ingredients
+
+
+    Igredient
+    ----------------
+        name
+        ------------
+        recipe
+
+
+### Loading from JSON
+
+In order to load a model from a JSON string, you can use the class method 'entityFromJson' on any NSManagedObject.
+
+    Recipe *recipe = [Recipe entityFromJson: jsonString];
+
+jsonString represents the folowing :
+
+    {
+        "name"        : "my recipe",
+        "details"     : "the details of the recipe",
+        "ingredients" : [
+            {"name" : "my first ingredient"},
+            {"name" : "my second ingredient"}
+        ]
+    }
+
+

@@ -56,6 +56,16 @@
 
 /***********************************************************************************************************
  */
++ (id) entityFromJson : (NSString *) json
+{
+    NSString *entityName = [LBObjectManager getClassNameFromObject: self];
+    
+    return [LBObjectManager objectWithClassName: entityName 
+                                 fromDictionary: [json mutableObjectFromJSONString]];
+}
+
+/***********************************************************************************************************
+ */
 + (NSArray *) fetch : (NSString *) format, ...
 {
     // TODO : make an easy way to pass the folloing information to the fetch method :

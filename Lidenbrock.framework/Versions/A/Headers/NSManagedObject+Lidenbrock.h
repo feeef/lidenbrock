@@ -20,6 +20,8 @@
 
 + (id) entityWithId : (NSString *) newId;
 
++ (id) entityFromJson : (NSString *) json;
+
 
 
 + (NSArray *) fetch : (NSString *) format, ...;
