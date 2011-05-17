@@ -162,11 +162,11 @@ You can also easily fetch entities from a predicate format.
 
 ### Fetch & sort
 
-You can sort your fetched data by adding a "SORT BY" satement at the end of your predicate format.
+You can sort your fetched data by adding a "SORT BY" statement at the end of your predicate format.
 
     NSArray *recipes = [Recipe fetch: @"ANY ingredients.name == %@ ORDER BY name DESC", ingredientName];
 
-<b>IMPORTANT NOTE : </b> You should not use any "%@" variables in your "SORT BY" satement as the fetch method extracts this statment out of the rest of the format and only apply variables to the real predicate format, as defined by Apple.
+<b>IMPORTANT NOTE : </b> You should not use any "%@" variables in your "SORT BY" statement as the fetch method extracts this statment out of the rest of the format and only apply variables to the real predicate format, as defined by Apple.
 
 
 What's coming next ?
