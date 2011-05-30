@@ -1,7 +1,7 @@
 Description
 ===========
 
-Lidenbrock is an add-on to Core Data. It is a solution to easily synchronize your Core Data application with some external JSON resources.
+Lidenbrock is an add-on to Core Data. It is a solution to easily synchronize your Core Data models with some external JSON resources.
 
 
 Features
