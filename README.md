@@ -105,6 +105,10 @@ The previous exemple creates a new entity for every single load.
 
 If you want to retrieve and synchronise existing data, you need to add an attribute called <b>syncID</b> (NSString) to your model.
 Lidenbrock will then look at any <b>id</b>, <b>_id</b> or <b>syncID</b> attribute in your JSON data and try to retreive an existing entity based on its value.
+You can also specify a custom attribute, in your json data, to be your syncID :
+
+    [Recipe setSyncIdAs: @"myCustomAttribute"];
+
 If no match can be made, a new entity is created.
 
 The new model is as follow :

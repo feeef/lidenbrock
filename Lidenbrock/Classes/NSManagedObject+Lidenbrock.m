@@ -11,6 +11,17 @@
 
 @implementation NSManagedObject (Lidenbrock)
 
+
+/***********************************************************************************************************
+ */
++ (void) setSyncIdAs : (NSString *) syncId
+{
+    NSString *className = [LBObjectManager getClassNameFromClass: self];
+    
+    [LBObjectManager setSyncIdAs : syncId 
+                  forClassName : className];
+}
+
 /***********************************************************************************************************
  */
 + (id) newEntity
@@ -19,7 +30,7 @@
     //
     NSManagedObjectContext *context = [NSManagedObjectContext defaultContext];
     
-	return [NSEntityDescription insertNewObjectForEntityForName: [LBObjectManager getClassNameFromObject: self] 
+	return [NSEntityDescription insertNewObjectForEntityForName: [LBObjectManager getClassNameFromClass: self] 
                                          inManagedObjectContext: context];
 }
 
@@ -43,7 +54,7 @@
             entity = [self newEntity];
             [entity setValue: newId 
                       forKey: @"syncID"];
-            NSLog(@"OHData : Insert new %@ with syncID = \"%@\"", [LBObjectManager getClassNameFromObject: self], newId);
+            NSLog(@"OHData : Insert new %@ with syncID = \"%@\"", [LBObjectManager getClassNameFromClass: self], newId);
         }
         
         return entity;
@@ -58,7 +69,7 @@
  */
 + (id) entityFromJson : (NSString *) json
 {
-    NSString *entityName = [LBObjectManager getClassNameFromObject: self];
+    NSString *entityName = [LBObjectManager getClassNameFromClass: self];
     
     return [LBObjectManager objectWithClassName: entityName 
                                  fromDictionary: [json mutableObjectFromJSONString]];
@@ -91,7 +102,7 @@
     //
     NSManagedObjectContext *context = [NSManagedObjectContext defaultContext];
     
-    NSString *entityName = [LBObjectManager getClassNameFromObject: self];
+    NSString *entityName = [LBObjectManager getClassNameFromClass: self];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
@@ -224,7 +235,7 @@
     // otherwise, an empty array is returned.
     //
     if ([LBObjectManager isArray: array]) {
-        return [LBObjectManager objectsWithClassName: [LBObjectManager getClassNameFromObject: self] 
+        return [LBObjectManager objectsWithClassName: [LBObjectManager getClassNameFromClass: self] 
                                            fromArray: array];
     }
     else {
@@ -248,6 +259,9 @@
 {		
 	if (dictionary != nil)
 	{	
+        NSString *className = [LBObjectManager getClassNameFromClass: [self class]];
+        NSString *customSyncId = [LBObjectManager syncIdForClassName: className];
+
 		NSArray *keys = [dictionary allKeys];
 		
 		NSString *key; 
@@ -265,8 +279,13 @@
 			//
 			key		= (NSString *)[keys objectAtIndex: i];
 			value	= [dictionary objectForKey: key];
-			
-            if ([key isEqualToString: @"id"] || [key isEqualToString: @"_id"]) 
+            
+            
+            if (customSyncId != nil && [key isEqualToString: customSyncId]) 
+            {
+                key = @"syncID";
+            }
+            else if ([key isEqualToString: @"id"] || [key isEqualToString: @"_id"]) 
             {
                 key = @"syncID";
             }

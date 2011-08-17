@@ -23,11 +23,16 @@
 				withObject : (id) object 
 					 error : (NSError **) error;
 
-+ (NSString *) getClassNameFromObject : (id) object;
++ (NSString *) getClassNameFromClass : (id) object;
 
 
 #pragma mark -
 #pragma mark  Handle Properties
+
++ (void) setSyncIdAs : (NSString *) syncId 
+      forClassName : (NSString *) className;
+
++ (NSString *) syncIdForClassName : (NSString *) className;
 
 + (NSString *) getValueFromProperty : (NSString *) propertyName 
 						   inObject : (id) object 

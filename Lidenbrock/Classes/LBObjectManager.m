@@ -10,6 +10,8 @@
 
 @implementation LBObjectManager
 
+static NSMutableDictionary* syncIDs        = nil;
+
 const char *kInitSelectorName       = "entityWithId:";
 const char *kSerializeSelectorName	= "toDictionary";
 const char *kLoadSelectorName		= "loadFromDictionary:";
@@ -80,7 +82,7 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
                                  valueString = [(NSNumber *)propertyValue stringValue];
                              }
                              else {
-                                 valueString = [LBObjectManager getClassNameFromObject: propertyValue];
+                                 valueString = [LBObjectManager getClassNameFromClass: propertyValue];
                              }
                              
                              processed = [processed stringByReplacingOccurrencesOfString: matchString 
@@ -93,7 +95,7 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 
 /***********************************************************************************************************
  */
-+ (NSString *) getClassNameFromObject : (id) object
++ (NSString *) getClassNameFromClass : (id) object
 {	
 	return [NSString stringWithCString:object_getClassName(object) encoding: NSUTF8StringEncoding];
 }
@@ -108,6 +110,31 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 #pragma mark -
 #pragma mark  Handle Properties
 
+/***********************************************************************************************************
+ */
++ (void) setSyncIdAs : (NSString *) syncId 
+      forClassName : (NSString *) className
+{
+    if (nil == syncIDs) {
+        syncIDs = [NSMutableDictionary dictionary];
+    }
+    
+    [syncIDs setObject: syncId
+                forKey: className];
+}
+
+/***********************************************************************************************************
+ */
++ (NSString *) syncIdForClassName : (NSString *) className
+{
+    if (nil == syncIDs) {
+        return nil;
+    }
+    else {
+        return [syncIDs objectForKey: className];
+    }
+    
+}
 
 /***********************************************************************************************************
  This method can accept properties with the following format :
@@ -181,10 +208,10 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 			
 			if (value == nil) {
 				if (elem != nil && parent != nil) {
-					errorDescription = [NSString stringWithFormat:@"Cannot find property '%@' in '%@' object", elem, [LBObjectManager getClassNameFromObject: parent]];
+					errorDescription = [NSString stringWithFormat:@"Cannot find property '%@' in '%@' object", elem, [LBObjectManager getClassNameFromClass: parent]];
 				}
 				else {
-					errorDescription = [NSString stringWithFormat:@"Cannot find property '%@' in '%@' object", propertyName, [LBObjectManager getClassNameFromObject: object]];
+					errorDescription = [NSString stringWithFormat:@"Cannot find property '%@' in '%@' object", propertyName, [LBObjectManager getClassNameFromClass: object]];
 				}
 				break;
 			}
@@ -651,8 +678,17 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
             // Otherwise, we use the default object instantiating process
             //
             if (class_getClassMethod(objectClass, sel_registerName(kInitSelectorName)) != NULL) {
-
-                NSString *newId = [dictionary objectForKey: @"_id"];
+                
+                NSString *newId = nil;
+                
+                NSString *customSyncId = [LBObjectManager syncIdForClassName: className];
+                
+                if (customSyncId != nil) {
+                    newId = [dictionary objectForKey: customSyncId];
+                }
+                if (newId == nil) {
+                    newId = [dictionary objectForKey: @"_id"];
+                }
                 if (newId == nil) {
                     newId = [dictionary objectForKey: @"id"];
                 }

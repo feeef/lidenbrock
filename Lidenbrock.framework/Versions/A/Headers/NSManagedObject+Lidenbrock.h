@@ -16,6 +16,9 @@
 
 @interface NSManagedObject (Lidenbrock)
 
++ (void) setSyncIdAs : (NSString *) syncId;
+
+
 + (id) newEntity;
 
 + (id) entityWithId : (NSString *) newId;
