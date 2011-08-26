@@ -24,6 +24,26 @@
 
 /***********************************************************************************************************
  */
++ (void) setDateFormat : (NSString *) format
+{
+    NSString *className = [LBObjectManager getClassNameFromClass: self];
+    
+    [LBObjectManager setDateFormat : format
+                      forClassName : className];
+}
+
+/***********************************************************************************************************
+ */
++ (void) setTimeZone : (NSTimeZone *) timeZone
+{
+    NSString *className = [LBObjectManager getClassNameFromClass: self];
+    
+    [LBObjectManager setTimeZone : timeZone
+                    forClassName : className];
+}
+
+/***********************************************************************************************************
+ */
 + (id) newEntity
 {
     // Get context
@@ -334,8 +354,40 @@
 			//
             if (shouldUpdate && [LBObjectManager object: self 
                                             hasProperty: key]) {
-                [self setValue: value 
-                        forKey: key];
+                
+                NSAttributeDescription *prop = (NSAttributeDescription *)[[[self entity] propertiesByName] objectForKey: key];
+                
+                if ([prop attributeType] == NSDateAttributeType) {
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    
+                    // Set Format
+                    //
+                    NSString *dateFormat    = [LBObjectManager dateFormatForClassName: className];
+                    if (dateFormat == nil) {
+                        dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                    }
+                    NSLog(@"OHData : Using date format on %@ : %@", className, dateFormat);
+                    [formatter setDateFormat: dateFormat];
+                    
+                    // Set timezone
+                    //
+                    NSTimeZone *timeZone = [LBObjectManager timeZoneForClassName: className];
+                    if (timeZone != nil) {
+                        [formatter setTimeZone: timeZone];
+                        NSLog(@"OHData : Using time zone on %@ : %@", className, [timeZone name]);
+                    }
+                    
+                    NSDate *dateFromString = [formatter dateFromString: value];
+                    
+                    [formatter release];
+                    
+                    [self setValue: dateFromString 
+                            forKey: key];
+                }
+                else {
+                    [self setValue: value 
+                            forKey: key];
+                }
             }
 		}
 	}

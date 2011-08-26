@@ -18,6 +18,11 @@
 
 + (void) setSyncIdAs : (NSString *) syncId;
 
++ (void) setDateFormat : (NSString *) format;
+
++ (void) setTimeZone : (NSTimeZone *) timeZone;
+
+
 
 + (id) newEntity;
 

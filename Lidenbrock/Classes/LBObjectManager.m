@@ -10,7 +10,9 @@
 
 @implementation LBObjectManager
 
-static NSMutableDictionary* syncIDs        = nil;
+static NSMutableDictionary* syncIDs         = nil;
+static NSMutableDictionary* dateFormats     = nil;
+static NSMutableDictionary* timeZones       = nil;
 
 const char *kInitSelectorName       = "entityWithId:";
 const char *kSerializeSelectorName	= "toDictionary";
@@ -132,6 +134,58 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
     }
     else {
         return [syncIDs objectForKey: className];
+    }
+    
+}
+
+/***********************************************************************************************************
+ */
++ (void) setDateFormat : (NSString *) format 
+          forClassName : (NSString *) className
+{
+    if (nil == dateFormats) {
+        dateFormats = [NSMutableDictionary dictionary];
+    }
+    
+    [dateFormats setObject: format
+                    forKey: className];
+}
+
+/***********************************************************************************************************
+ */
++ (NSString *) dateFormatForClassName : (NSString *) className
+{
+    if (nil == dateFormats) {
+        return nil;
+    }
+    else {
+        return [dateFormats objectForKey: className];
+    }
+    
+}
+
+/***********************************************************************************************************
+ */
++ (void) setTimeZone : (NSTimeZone *) timeZone 
+        forClassName : (NSString *) className
+{
+    if (nil == timeZones) {
+        timeZones = [NSMutableDictionary dictionary];
+    }
+    
+    [timeZones setObject: timeZone
+                  forKey: className];
+}
+
+/***********************************************************************************************************
+ */
++ (NSTimeZone *) timeZoneForClassName : (NSString *) className
+{
+    if (nil == timeZones) {
+        return nil;
+    }
+    else {
+        return [timeZones objectForKey: className];
     }
     
 }

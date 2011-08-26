@@ -52,6 +52,7 @@ The following <b>jsonObject</b> variable :
         "id"          : "REC1",
         "name"        : "pancake",
         "details"     : "In a large bowl, sift together the flour, egg, milk...",
+        "createdOn"   : "2011-08-26"
         "ingredients" : [
             {
                 "id"   : "INGR1",
@@ -118,6 +119,7 @@ The new model is as follow :
         syncID (NSString)
         name (NSString)
         details (NSString)
+        createdOn (NSDate)
         ------------
         ingredients (NSSet)
 
@@ -133,6 +135,19 @@ The new model is as follow :
 <b>entityFromJson</b> will now sync existing data
 
     Recipe *recipe = [Recipe entityFromJson: jsonObject];
+
+
+### Working with dates
+
+If a Core Data entity defines one or more attributes as NSDate, you will have to specify the format used to load the NSDate object from the JSON string. If none is specified, the following is used by default : 'yyyy-MM-dd HH:mm:ss'
+
+    [Recipe setDateFormat: @"yyyy-MM-dd"];
+
+
+You can also specify a time zone to be used on each date on your object. If none is specified, no time zone is set to the date formatter.
+
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation: @"UTC"];
+    [Recipe setTimeZone: timeZone];
 
 
 

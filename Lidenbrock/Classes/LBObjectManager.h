@@ -34,6 +34,19 @@
 
 + (NSString *) syncIdForClassName : (NSString *) className;
 
++ (void) setDateFormat : (NSString *) format 
+          forClassName : (NSString *) className;
+
++ (NSString *) dateFormatForClassName : (NSString *) className;
+
+
++ (void) setTimeZone : (NSTimeZone *) timeZone 
+        forClassName : (NSString *) className;
+
++ (NSTimeZone *) timeZoneForClassName : (NSString *) className;
+
+
+
 + (NSString *) getValueFromProperty : (NSString *) propertyName 
 						   inObject : (id) object 
 							  error : (NSError **) error;
