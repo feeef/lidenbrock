@@ -68,6 +68,8 @@
 
 + (BOOL) isArray : (id) object;
 
++ (BOOL) isSet : (id) object;
+
 + (BOOL) isString : (id) object;
 
 + (BOOL) isDate : (id) object;
@@ -91,11 +93,20 @@
 
 + (NSDate *) plistFromDate : (NSDate *) date;
 
-+ (NSDictionary *) plistFromDictionary : (NSDictionary *) dictionary;
++ (NSString *) stringFromDate : (NSDate *) date 
+                   withFormat : (NSString *) format 
+                  andTimeZone : (NSTimeZone *) timeZone;
 
-+ (NSArray *) plistFromArray : (NSArray *) array;
++ (NSDictionary *) plistFromDictionary : (NSDictionary *) dictionary 
+                        withEntityName : (NSString *) entityName;
+
++ (NSArray *) plistFromArray : (NSArray *) array 
+              withParentName : (NSString *) parentName;
 
 + (NSDictionary *) plistFromModel : (id) model;
+
++ (NSDictionary *) plistFromModel : (id) model 
+                   withParentName : (NSString *) parentName;
 
 
 

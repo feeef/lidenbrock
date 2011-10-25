@@ -123,7 +123,7 @@
     NSManagedObjectContext *context = [NSManagedObjectContext defaultContext];
     
     NSString *entityName = [LBObjectManager getClassNameFromClass: self];
-    
+     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName: entityName
                                               inManagedObjectContext: context];
@@ -396,13 +396,47 @@
 
 /***********************************************************************************************************
  */
-- (NSDictionary *) toDictionary
+- (NSDictionary *) toDictionary : (NSString *) parentName
 {	
+    NSString *className = [LBObjectManager getClassNameFromClass: [self class]];
+    
 	// Load real object properties
 	//
-	NSMutableDictionary *allAttributes = [NSMutableDictionary dictionaryWithDictionary: [LBObjectManager propertiesFromObject: self]];
+	NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary: [LBObjectManager propertiesFromObject: self]];
     
-	return [LBObjectManager plistFromDictionary: allAttributes];
+    
+    // remove any backward relationship
+    //
+    if (parentName != nil) {
+        
+        NSArray *props = [[self entity] properties];
+
+        
+		NSEnumerator* enumerator = [props objectEnumerator];
+		id value;
+		while ((value = [enumerator nextObject])) 
+		{            
+            if ([value isKindOfClass: [NSRelationshipDescription class]]) {
+                
+                if ([[[value destinationEntity] name] isEqualToString: parentName]) {
+                    [attributes removeObjectForKey: [value name]];
+                }
+            }
+        }
+    }
+
+
+    
+	return [LBObjectManager plistFromDictionary: attributes 
+                                 withEntityName: className];
+}
+
+
+/***********************************************************************************************************
+ */
+- (NSString *) toJson
+{	    
+	return [LBObjectManager jsonFromObject: self];
 }
 
 

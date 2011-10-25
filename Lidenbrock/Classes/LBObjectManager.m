@@ -15,7 +15,7 @@ static NSMutableDictionary* dateFormats     = nil;
 static NSMutableDictionary* timeZones       = nil;
 
 const char *kInitSelectorName       = "entityWithId:";
-const char *kSerializeSelectorName	= "toDictionary";
+const char *kSerializeSelectorName	= "toDictionary:";
 const char *kLoadSelectorName		= "loadFromDictionary:";
 
 /*
@@ -353,7 +353,7 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 				{
 					if ([LBObjectManager isModel: propertyValue])
 					{
-						propertyValue = objc_msgSend(propertyValue, sel_registerName(kSerializeSelectorName));
+						propertyValue = objc_msgSend(propertyValue, sel_registerName(kSerializeSelectorName), nil);
 					}
 					
 					[propDict setObject: propertyValue
@@ -390,6 +390,13 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 + (BOOL) isArray : (id) object
 {
 	return (object != nil && [object isKindOfClass: [NSArray class]]) ? YES : NO;
+}
+
+/***********************************************************************************************************
+ */
++ (BOOL) isSet : (id) object
+{
+	return (object != nil && [object isKindOfClass: [NSSet class]]) ? YES : NO;
 }
 
 /***********************************************************************************************************
@@ -448,7 +455,7 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 	id plist = nil;
 	
 	if ([LBObjectManager isModel: object]) {
-		plist = objc_msgSend(object, sel_registerName(kSerializeSelectorName));
+		plist = objc_msgSend(object, sel_registerName(kSerializeSelectorName), nil);
 	}
 	else {
 		plist = object;
@@ -474,11 +481,11 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
  */
 + (NSString *) jsonFromObject : (id) object
 {
-	NSString *json		= nil;
-	NSDictionary *dict	= nil;
+	NSString *json              = nil;
+	NSMutableDictionary *dict	= nil;
 	
 	if ([LBObjectManager isModel: object]) {
-		dict = objc_msgSend(object, sel_registerName(kSerializeSelectorName));
+		dict = objc_msgSend(object, sel_registerName(kSerializeSelectorName), nil);
 	}
 	else if ([LBObjectManager isDictionary: object]) {
 		dict = object;
@@ -529,10 +536,48 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 
 /***********************************************************************************************************
  */
++ (NSString *) stringFromDate : (NSDate *) date 
+                   withFormat : (NSString *) format 
+                  andTimeZone : (NSTimeZone *) timeZone
+{
+	if (date == nil) {
+		date = [NSDate date];
+	}
+    
+    if (format == nil) {
+        format = @"yyyy-MM-dd HH:mm:ss";
+    }
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: format];
+    
+    if (timeZone != nil) {
+        [formatter setTimeZone: timeZone];
+    }
+    
+    NSString *dateString = [formatter stringFromDate: date];
+    
+    [formatter release];
+    
+    return dateString;
+}
+
+
+/***********************************************************************************************************
+ */
 + (NSDictionary *) plistFromModel : (id) model
 {
+    return [LBObjectManager plistFromModel: model 
+                            withParentName: nil];
+}
+
+/***********************************************************************************************************
+ */
++ (NSDictionary *) plistFromModel : (id) model 
+                   withParentName : (NSString *) parentName
+{
 	if ([LBObjectManager isModel: model]) {
-		return objc_msgSend(model, sel_registerName(kSerializeSelectorName));
+		return objc_msgSend(model, sel_registerName(kSerializeSelectorName), parentName);
 	}
 	else {
 		return nil;
@@ -541,7 +586,8 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 
 /***********************************************************************************************************
  */
-+ (NSDictionary *) plistFromDictionary : (NSDictionary *) dictionary
++ (NSDictionary *) plistFromDictionary : (NSDictionary *) dictionary 
+                        withEntityName : (NSString *) entityName
 {
 	if (dictionary == nil)
 	{
@@ -573,17 +619,33 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 				
 			}			
 			else if ([LBObjectManager isDate: value]) {
-				[plistObject setObject: [LBObjectManager plistFromDate: value] 
+                NSString *format = nil;
+                NSTimeZone *timeZone = nil;
+                if (entityName != nil) {
+                    format = [LBObjectManager dateFormatForClassName: entityName];
+                    timeZone = [LBObjectManager timeZoneForClassName: entityName];
+                }
+				[plistObject setObject: [LBObjectManager stringFromDate: value 
+                                                             withFormat: format 
+                                                            andTimeZone: timeZone]
 								forKey: key];
 				
 			}
 			else if ([LBObjectManager isDictionary: value]) {
-				[plistObject setObject: [LBObjectManager plistFromDictionary: value] 
+				[plistObject setObject: [LBObjectManager plistFromDictionary: value 
+                                                              withEntityName: nil] 
 								forKey: key];
 				
 			}
 			else if ([LBObjectManager isArray: value]) {
-				[plistObject setObject: [LBObjectManager plistFromArray: value] 
+				[plistObject setObject: [LBObjectManager plistFromArray: value 
+                                                         withParentName: entityName]
+								forKey: key];
+				
+			}
+            else if ([LBObjectManager isSet: value]) {
+				[plistObject setObject: [LBObjectManager plistFromArray: [value allObjects] 
+                                                         withParentName: entityName] 
 								forKey: key];
 				
 			}
@@ -602,6 +664,7 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 /***********************************************************************************************************
  */
 + (NSArray *) plistFromArray : (NSArray *) array 
+              withParentName : (NSString *) parentName
 {
 	if (array == nil)
 	{
@@ -628,15 +691,23 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 				
 			}			
 			else if ([LBObjectManager isDictionary: value]) {
-				[plistObject addObject: [LBObjectManager plistFromDictionary: value]];
+				[plistObject addObject: [LBObjectManager plistFromDictionary: value 
+                                                              withEntityName: nil]];
 				
 			}
 			else if ([LBObjectManager isArray: value]) {
-				[plistObject addObject: [LBObjectManager plistFromArray: value]];
+				[plistObject addObject: [LBObjectManager plistFromArray: value 
+                                                         withParentName: nil]];
+				
+			}
+            else if ([LBObjectManager isSet: value]) {
+				[plistObject addObject: [LBObjectManager plistFromArray: [value allObjects] 
+                                                         withParentName: nil]];
 				
 			}
 			else if ([LBObjectManager isModel: value]) {
-				[plistObject addObject: [LBObjectManager plistFromModel: value]];
+				[plistObject addObject: [LBObjectManager plistFromModel: value 
+                                                         withParentName: parentName]];
 			}
 		}
 		

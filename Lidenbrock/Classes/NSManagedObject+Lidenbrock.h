@@ -46,8 +46,9 @@
 
 
 
-- (NSDictionary *) toDictionary;
+- (NSDictionary *) toDictionary : (NSString *) parentName;
 
+- (NSString *) toJson;
 
 
 - (BOOL) save;

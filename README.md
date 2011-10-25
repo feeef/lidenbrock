@@ -151,6 +151,14 @@ You can also specify a time zone to be used on each date on your object. If none
 
 
 
+### Serialize to JSON
+
+You can serialize your Core Data models into JSON by calling the method <b>toJson</b> on your instance.
+
+    NSString *jsonString = [recipe toJson];
+
+
+
 ### Save
 
 You may save your data by calling the <b>save</b> method on your NSManagedObject instance. This is in fact a shortcut that performs a save on the context, saving any other unsaved data.
