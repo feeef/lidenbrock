@@ -44,6 +44,16 @@
 
 /***********************************************************************************************************
  */
++ (void) setMapping : (NSDictionary *) mapping
+{
+    NSString *className = [LBObjectManager getClassNameFromClass: self];
+    
+    [LBObjectManager setMapping : mapping
+                   forClassName : className];
+}
+
+/***********************************************************************************************************
+ */
 + (id) newEntity
 {
     // Get context
@@ -279,8 +289,9 @@
 {		
 	if (dictionary != nil)
 	{	
-        NSString *className = [LBObjectManager getClassNameFromClass: [self class]];
-        NSString *customSyncId = [LBObjectManager syncIdForClassName: className];
+        NSString *className     = [LBObjectManager getClassNameFromClass: [self class]];
+        NSString *customSyncId  = [LBObjectManager syncIdForClassName: className];
+        NSDictionary *mapping   = [LBObjectManager mappingForClassName: className];
 
 		NSArray *keys = [dictionary allKeys];
 		
@@ -299,6 +310,15 @@
 			//
 			key		= (NSString *)[keys objectAtIndex: i];
 			value	= [dictionary objectForKey: key];
+            
+            if (mapping != nil) {
+                id mapKey = [mapping objectForKey: key];
+                if (mapKey != nil) {
+                    key = mapKey;
+                }
+            }
+            
+            
             
             
             if (customSyncId != nil && [key isEqualToString: customSyncId]) 

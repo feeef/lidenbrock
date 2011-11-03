@@ -10,9 +10,11 @@
 
 @implementation LBObjectManager
 
-static NSMutableDictionary* syncIDs         = nil;
-static NSMutableDictionary* dateFormats     = nil;
-static NSMutableDictionary* timeZones       = nil;
+static NSMutableDictionary* syncIDs             = nil;
+static NSMutableDictionary* dateFormats         = nil;
+static NSMutableDictionary* timeZones           = nil;
+static NSMutableDictionary* mappings            = nil;
+static NSMutableDictionary* inverseMappings     = nil;
 
 const char *kInitSelectorName       = "entityWithId:";
 const char *kSerializeSelectorName	= "toDictionary:";
@@ -177,6 +179,7 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
                   forKey: className];
 }
 
+
 /***********************************************************************************************************
  */
 + (NSTimeZone *) timeZoneForClassName : (NSString *) className
@@ -187,7 +190,68 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
     else {
         return [timeZones objectForKey: className];
     }
+}
+
+
+/***********************************************************************************************************
+ */
++ (void) setMapping : (NSDictionary *) mapping 
+       forClassName : (NSString *) className
+{
+    if (nil == mappings) {
+        mappings = [NSMutableDictionary dictionary];
+    }
     
+    [mappings setObject: mapping
+                 forKey: className];
+    
+    // Generate inverse mapping for deserialization
+    //
+    NSMutableDictionary *inverseMapping = [NSMutableDictionary dictionary];
+    NSArray *keys = [mapping allKeys];
+    id key; 
+    id value;
+    int i;
+    for (i = 0; i < [keys count]; i++)
+    {
+        key = [keys objectAtIndex: i];
+        value = [mapping objectForKey: key];
+        
+        [inverseMapping setObject: key 
+                           forKey: value];
+    }
+    
+    if (nil == inverseMappings) {
+        inverseMappings = [NSMutableDictionary dictionary];
+    }
+    
+    [inverseMappings setObject: inverseMapping
+                        forKey: className];
+}
+
+
+/***********************************************************************************************************
+ */
++ (NSDictionary *) mappingForClassName : (NSString *) className
+{
+    if (nil == mappings) {
+        return nil;
+    }
+    else {
+        return [mappings objectForKey: className];
+    }
+}
+
+/***********************************************************************************************************
+ */
++ (NSDictionary *) inverseMappingForClassName : (NSString *) className
+{
+    if (nil == inverseMappings) {
+        return nil;
+    }
+    else {
+        return [inverseMappings objectForKey: className];
+    }
 }
 
 /***********************************************************************************************************
@@ -595,6 +659,8 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 	}
 	else
 	{
+        NSDictionary *mapping   = [LBObjectManager inverseMappingForClassName: entityName];
+        
 		NSMutableDictionary *plistObject = [NSMutableDictionary dictionary];
 		
 		NSArray *keys = [dictionary allKeys];
@@ -606,6 +672,13 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
 		{
 			key = [keys objectAtIndex: i];
 			value = [dictionary objectForKey: key];
+            
+            if (mapping != nil) {
+                id mapKey = [mapping objectForKey: key];
+                if (mapKey != nil) {
+                    key = mapKey;
+                }
+            }
 			
 			
 			if ([LBObjectManager isString: value]) {

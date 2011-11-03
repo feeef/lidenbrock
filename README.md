@@ -137,6 +137,20 @@ The new model is as follow :
     Recipe *recipe = [Recipe entityFromJson: jsonObject];
 
 
+### Mapping
+
+If some of your JSON fields names don't match your models names, you can apply a specific mapping to you CoreData entity.
+
+    NSDictionary *mapping = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"model_name", @"json_name", 
+                                @"model_details", @"json_details", nil];
+
+    [Recipe setMapping: mapping];
+
+The keys of your mapping dictionnary represent the JSON fields and the values represent the CoreData model fields.
+
+
+
 ### Working with dates
 
 If a Core Data entity defines one or more attributes as NSDate, you will have to specify the format used to load the NSDate object from the JSON string. If none is specified, the following is used by default : 'yyyy-MM-dd HH:mm:ss'

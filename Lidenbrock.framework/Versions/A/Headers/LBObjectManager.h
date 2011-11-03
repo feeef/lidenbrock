@@ -46,6 +46,14 @@
 + (NSTimeZone *) timeZoneForClassName : (NSString *) className;
 
 
++ (void) setMapping : (NSDictionary *) mapping 
+       forClassName : (NSString *) className;
+
++ (NSDictionary *) mappingForClassName : (NSString *) className;
+
++ (NSDictionary *) inverseMappingForClassName : (NSString *) className;
+
+
 
 + (NSString *) getValueFromProperty : (NSString *) propertyName 
 						   inObject : (id) object 

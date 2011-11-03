@@ -22,6 +22,8 @@
 
 + (void) setTimeZone : (NSTimeZone *) timeZone;
 
++ (void) setMapping : (NSDictionary *) mapping;
+
 
 
 + (id) newEntity;
