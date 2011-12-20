@@ -374,10 +374,10 @@ const char *kLoadSelectorName		= "loadFromDictionary:";
                                           options: 0
                                             range: NSMakeRange(0, [propAttr length])];
         
-        NSTextCheckingResult *match = [matches objectAtIndex: 0];
-        
-        className = [propAttr substringWithRange: [match rangeAtIndex: 1]];
-        
+        if (matches != nil && [matches count] > 0) {
+            NSTextCheckingResult *match = [matches objectAtIndex: 0];
+            className = [propAttr substringWithRange: [match rangeAtIndex: 1]];
+        }
 	};
 	
 	return className;

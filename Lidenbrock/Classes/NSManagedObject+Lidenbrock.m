@@ -333,9 +333,11 @@
 			if ([LBObjectManager isDictionary: value]) {
 				// Parse dictionary
 				//
-				value = [LBObjectManager objectWithClassName: [self getClassNameForKey: key] 
-                                              fromDictionary: value];
-                
+                NSString *className = [self getClassNameForKey: key];
+                if (className != nil) {
+                    value = [LBObjectManager objectWithClassName: [self getClassNameForKey: key] 
+                                                  fromDictionary: value];
+                }
 			}
 			else if ([LBObjectManager isArray: value])  {
 
