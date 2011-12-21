@@ -34,6 +34,7 @@
 		C771B6B6137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m in Sources */ = {isa = PBXBuildFile; fileRef = C771B6AD137D6F7A00FA004C /* NSManagedObjectContext+Lidenbrock.m */; };
 		C771B6BA137D6FD400FA004C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C771B6B8137D6FD400FA004C /* CoreData.framework */; };
 		C771B6BB137D6FD400FA004C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C771B6B9137D6FD400FA004C /* UIKit.framework */; };
+		C791ABE214A2261F00484241 /* DOC.md in Resources */ = {isa = PBXBuildFile; fileRef = C791ABE114A2261F00484241 /* DOC.md */; };
 		C7C5820B1393D1AE00C207B5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C7C5820A1393D1AE00C207B5 /* LICENSE */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		C771B6B7137D6FB400FA004C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		C771B6B8137D6FD400FA004C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C771B6B9137D6FD400FA004C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C791ABE114A2261F00484241 /* DOC.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DOC.md; sourceTree = "<group>"; };
 		C7C5820A1393D1AE00C207B5 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 		C771B682137D6F1200FA004C = {
 			isa = PBXGroup;
 			children = (
+				C791ABE114A2261F00484241 /* DOC.md */,
 				C7C5820A1393D1AE00C207B5 /* LICENSE */,
 				C771B6B7137D6FB400FA004C /* README.md */,
 				C771B695137D6F1200FA004C /* Lidenbrock */,
@@ -205,6 +208,7 @@
 			files = (
 				C771B69A137D6F1200FA004C /* InfoPlist.strings in Resources */,
 				C7C5820B1393D1AE00C207B5 /* LICENSE in Resources */,
+				C791ABE214A2261F00484241 /* DOC.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
